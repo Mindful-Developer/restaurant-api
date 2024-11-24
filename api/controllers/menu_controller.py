@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 from fastapi import APIRouter, HTTPException, Response, status
 from typing import List
@@ -14,6 +15,7 @@ async def create_menu_item(item: MenuItemCreate):
     """Create a new menu item"""
     try:
         item_dict = item.model_dump()
+        item_dict['created_at'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
         if isinstance(item_dict.get('price'), str):
             item_dict['price'] = Decimal(item_dict['price'])
 
@@ -54,7 +56,9 @@ async def update_menu_item(item_id: str, item: MenuItemCreate):
         if not existing_item:
             raise HTTPException(status_code=404, detail="Menu item not found")
 
-        updated_item = await menu_repository.update_item(item_id, item.model_dump())
+        item_dict = item.model_dump()
+        item_dict['created_at'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        updated_item = await menu_repository.update_item(item_id, item_dict)
         return updated_item
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -68,7 +72,9 @@ async def patch_menu_item(item_id: str, item: MenuItemUpdate):
         if not existing_item:
             raise HTTPException(status_code=404, detail="Menu item not found")
 
-        patched_item = await menu_repository.patch_item(item_id, item.model_dump(exclude_unset=True))
+        item_dict = item.model_dump(exclude_unset=True)
+        item_dict['created_at'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        patched_item = await menu_repository.patch_item(item_id, item_dict)
         return patched_item
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
