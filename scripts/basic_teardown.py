@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import os
+
 import boto3
 from botocore.exceptions import ClientError
-
+from dotenv import load_dotenv
+load_dotenv()
 
 class BasicAWSCleanup:
-    def __init__(self, region='us-east-1'):
+    def __init__(self, region=os.getenv('AWS_DEFAULT_REGION')):
         self.region = region
         self.dynamodb = boto3.client('dynamodb', region_name=region)
 
