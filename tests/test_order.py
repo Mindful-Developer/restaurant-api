@@ -7,7 +7,7 @@ from client.order_client import OrderClient
 
 
 async def test_menu_operations():
-    client = OrderClient("http://127.0.0.1:8001")
+    client = OrderClient("http://127.0.0.1:8000")
 
     # Get all items
     all_items = client.get_all_orders()
@@ -22,17 +22,17 @@ async def test_menu_operations():
           "item": {
             "item_id": "item1",
             "name": "Margherita Pizza",
-            "price": "12.99",
+            "price": 12.99,
             "description": "Classic tomato and mozzarella pizza",
             "category": "Pizza"
           },
           "quantity": 1
         }
       ],
-      "subtotal": "0.0",
-      "discount_pct": "0.9",
-      "total": "0.0",
-      "order_date": "0.0"
+      "subtotal": 0.0,
+      "discount_pct": 0.9,
+      "total": 0.0,
+      "order_date": ""
     }
 
 
@@ -47,16 +47,16 @@ async def test_menu_operations():
                 "item": {
                     "item_id": "item1",
                     "name": "Deluxe Margherita Pizza",
-                    "price": "70.00",
+                    "price": 70.00,
                     "description": "Classic tomato and mozzarella pizza. Made with love, so double the price.",
                     "category": "Pizza"
                 },
                 "quantity": 1
             }
         ],
-        "subtotal": "0.0",
-        "discount_pct": "0.3",
-        "total": "0.0",
+        "subtotal": 0.0,
+        "discount_pct": 0.3,
+        "total": 0.0,
         "order_date": ""
     }
 

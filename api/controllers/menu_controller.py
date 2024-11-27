@@ -15,9 +15,8 @@ async def create_menu_item(item: MenuItemCreate):
     """Create a new menu item"""
     try:
         item_dict = item.model_dump()
-        item_dict['created_at'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-        if isinstance(item_dict.get('price'), str):
-            item_dict['price'] = Decimal(item_dict['price'])
+        item_dict['created_at'] = str(datetime.now().timestamp())
+        item_dict['price'] = Decimal(str(item_dict['price']))
 
         created_item = await menu_repository.create_item(item_dict)
         return created_item
@@ -31,6 +30,10 @@ async def get_all_menu_items():
     """Get all menu items"""
     try:
         items = await menu_repository.get_all()
+        for i, item in enumerate(items):
+            for attr, val in item.items():
+                if attr == 'price':
+                    items[i][attr] = float(val)
         return items
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -43,6 +46,9 @@ async def get_menu_item(item_id: str):
         item = await menu_repository.get_by_id(item_id)
         if not item:
             raise HTTPException(status_code=404, detail="Menu item not found")
+        for attr, val in item.items():
+            if attr == 'price':
+                item[attr] = float(val)
         return item
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -57,7 +63,7 @@ async def update_menu_item(item_id: str, item: MenuItemCreate):
             raise HTTPException(status_code=404, detail="Menu item not found")
 
         item_dict = item.model_dump()
-        item_dict['created_at'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        item_dict['created_at'] = str(datetime.now().timestamp())
         updated_item = await menu_repository.update_item(item_id, item_dict)
         return updated_item
     except Exception as e:
@@ -73,7 +79,7 @@ async def patch_menu_item(item_id: str, item: MenuItemUpdate):
             raise HTTPException(status_code=404, detail="Menu item not found")
 
         item_dict = item.model_dump(exclude_unset=True)
-        item_dict['created_at'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        item_dict['created_at'] = str(datetime.now().timestamp())
         patched_item = await menu_repository.patch_item(item_id, item_dict)
         return patched_item
     except Exception as e:

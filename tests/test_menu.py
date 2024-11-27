@@ -12,7 +12,7 @@ async def test_menu_operations():
     # Create a menu item
     new_item = {
         "name": "Margherita Pizza",
-        "price": "12.99",
+        "price": 12.99,
         "description": "Classic Italian pizza with tomato and mozzarella",
         "category": "Pizza"
     }
@@ -23,7 +23,7 @@ async def test_menu_operations():
     # Update the item
     updated_data = {
         "name": "Super Margherita Pizza",
-        "price": "14.99"
+        "price": 14.99
     }
     updated_item = client.patch_menu_item(created_item['item_id'], updated_data)
     print(f"Updated item: {updated_item}")

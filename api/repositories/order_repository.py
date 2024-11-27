@@ -37,11 +37,11 @@ class OrderRepository:
             raise
 
     async def update_order(self, order_id: str, order_data: dict) -> dict:
-        update_data = {k: v for k, v in order_data.items() if v is not None}
+        update_data = {k: v for k, v in order_data.items() if k != 'order_id'}
+
         if not update_data:
             raise HTTPException(status_code=400, detail="No valid update data provided")
 
-        # Build update expression
         update_expression = "SET " + ", ".join(f"#{k} = :{k}" for k in update_data)
         expression_attribute_names = {f"#{k}": k for k in update_data}
         expression_attribute_values = {f":{k}": v for k, v in update_data.items()}

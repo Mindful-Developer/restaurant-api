@@ -16,7 +16,7 @@ class OrderCreate(BaseModel):
     subtotal: Optional[condecimal(max_digits=15, decimal_places=2)] = Decimal(0.00)
     discount_pct: Optional[condecimal(ge=0, le=1, decimal_places=2)] = Decimal(0.00)
     total: Optional[condecimal(max_digits=15, decimal_places=2)] = Decimal(0.00)
-    order_date: str = datetime.now().strftime('%d/%m/%Y')
+    order_date: str = str(datetime.now().timestamp())
 
 class OrderUpdate(BaseModel):
     order_number: Optional[str] = None

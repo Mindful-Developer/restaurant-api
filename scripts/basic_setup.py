@@ -109,7 +109,7 @@ class BasicAWSSetup:
                 'subtotal': Decimal('23.98'),
                 'total': Decimal('23.98'),
                 'discount_pct': Decimal('0.00'),
-                'order_date': datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+                'order_date': str(datetime.now().timestamp())
             },
             {
                 'order_id': 'id2',
@@ -129,7 +129,7 @@ class BasicAWSSetup:
                 'subtotal': Decimal('12.99'),
                 'discount_pct': Decimal('0.25'),
                 'total': Decimal('9.7425').quantize(Decimal('0.01'), rounding=ROUND_DOWN),
-                'order_date': datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+                'order_date': str(datetime.now().timestamp())
             },
         ]
 
