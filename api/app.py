@@ -1,7 +1,13 @@
+import os
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .controllers import menu_controller, order_controller
 
+load_dotenv()
+
+# print(os.environ)
 app = FastAPI(title="Restaurant API")
 
 # Configure CORS

@@ -1,8 +1,14 @@
+import os
+
 import boto3
 import uuid
 from botocore.exceptions import ClientError
 from typing import Optional
+
+from dotenv import load_dotenv
 from fastapi import HTTPException
+
+load_dotenv()
 
 class MenuRepository:
     def __init__(self):
