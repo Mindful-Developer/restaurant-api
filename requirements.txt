@@ -1,9 +1,10 @@
 fastapi==0.109.1
 uvicorn==0.24.0
-boto3==1.29.0
+boto3==1.35.70
 pydantic==2.9.2
 python-dotenv==1.0.0
 requests==2.32.0
-botocore~=1.32.7
+botocore~=1.35.70
 fastapi-cors==0.0.6
+urllib3==2.2.3
 boto3-helpers==2.4.0
